@@ -1,11 +1,10 @@
 pipeline {
-    // agent {
-    //     docker {
-    //         image 'maven:3.9.0'
-    //         args '-v /root/.m2:/root/.m2'
-    //     }
-    // }
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.0'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
     environment {
         // Jenkins에서 설정한 Maven 도구 이름을 사용
         MVN_HOME = 'Maven 3.9.2'
