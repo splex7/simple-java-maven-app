@@ -1,12 +1,31 @@
 pipeline {
-    // agent {
-    //     docker {
-    //         image 'maven:3.9.0'
-    //         args '-v /root/.m2:/root/.m2'
-    //     }
-    // }
-   
-    agent any
+    
+    agent {
+        docker {
+            image 'jenkins/jenkins:lts'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // GitHub에서 코드 체크아웃
+                git 'https://github.com/splex7/simple-java-maven-app.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Maven 빌드 실행
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+ 
+
  
     environment {
         // Jenkins에서 설정한 Maven 도구 이름을 사용
